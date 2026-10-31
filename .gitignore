@@ -1,0 +1,14 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
+volumes/
+models/
+.install-logs/
+data/app.db*
+data/.secret_key
+data/uploads_pending/
+data/docs/**/*.pdf
+data/docs/**/*.docx
+backups/

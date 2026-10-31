@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 700" font-family="Segoe UI, Microsoft YaHei, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#64748b"/>
+    </marker>
+    <marker id="arrowWarn" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#d97706"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <rect width="1180" height="700" fill="#f8fafc"/>
+
+  <!-- 边界 -->
+  <rect x="24" y="64" width="812" height="596" rx="18" fill="#eef4ff" stroke="#bfdbfe" stroke-width="1.5" stroke-dasharray="7 5"/>
+  <text x="44" y="92" font-size="13" font-weight="700" fill="#1d4ed8">企业内网 / 本机部署</text>
+  <text x="44" y="110" font-size="11" fill="#64748b">文档、向量、用户、会话与模型均在企业侧</text>
+
+  <rect x="872" y="64" width="284" height="596" rx="18" fill="#fffbeb" stroke="#fde68a" stroke-width="1.5" stroke-dasharray="7 5"/>
+  <text x="892" y="92" font-size="13" font-weight="700" fill="#b45309">阿里云百炼</text>
+  <text x="892" y="110" font-size="11" fill="#92400e">仅发送问题与检索到的片段</text>
+
+  <!-- 浏览器 -->
+  <rect x="58" y="138" width="186" height="108" rx="12" fill="#ffffff" stroke="#7dd3fc" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="151" y="168" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">用户浏览器</text>
+  <text x="151" y="192" text-anchor="middle" font-size="11.5" fill="#475569">登录 / 上传 / 知识库</text>
+  <text x="151" y="212" text-anchor="middle" font-size="11.5" fill="#475569">对话 / 引用 / 历史会话</text>
+  <text x="151" y="232" text-anchor="middle" font-size="10.5" fill="#64748b">原生 HTML / CSS / JS</text>
+
+  <!-- Nginx -->
+  <rect x="310" y="148" width="186" height="86" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="403" y="178" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">Nginx / HTTPS</text>
+  <text x="403" y="200" text-anchor="middle" font-size="11" fill="#64748b">反向代理（可选）</text>
+  <text x="403" y="218" text-anchor="middle" font-size="10.5" fill="#94a3b8">TLS · 上传大小 · 超时</text>
+
+  <!-- Flask 应用 -->
+  <rect x="300" y="288" width="464" height="250" rx="14" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="532" y="318" text-anchor="middle" font-size="15" font-weight="700" fill="#1e3a8a">Waitress + Flask 应用</text>
+  <text x="532" y="338" text-anchor="middle" font-size="10.5" fill="#64748b">单实例 · 多线程 · 后台上传 worker</text>
+
+  <rect x="324" y="356" width="200" height="70" rx="10" fill="#eff6ff" stroke="#bfdbfe"/>
+  <text x="424" y="384" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1d4ed8">认证与部门权限</text>
+  <text x="424" y="404" text-anchor="middle" font-size="10.5" fill="#475569">登录 / Session / admin / user</text>
+
+  <rect x="540" y="356" width="200" height="70" rx="10" fill="#eff6ff" stroke="#bfdbfe"/>
+  <text x="640" y="384" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1d4ed8">上传与文档解析</text>
+  <text x="640" y="404" text-anchor="middle" font-size="10.5" fill="#475569">任务队列 / OCR / 切片</text>
+
+  <rect x="324" y="442" width="200" height="70" rx="10" fill="#f5f3ff" stroke="#ddd6fe"/>
+  <text x="424" y="470" text-anchor="middle" font-size="12.5" font-weight="700" fill="#6d28d9">RAG 检索与问答</text>
+  <text x="424" y="490" text-anchor="middle" font-size="10.5" fill="#475569">混合召回 / RRF / rerank / Prompt</text>
+
+  <rect x="540" y="442" width="200" height="70" rx="10" fill="#f5f3ff" stroke="#ddd6fe"/>
+  <text x="640" y="470" text-anchor="middle" font-size="12.5" font-weight="700" fill="#6d28d9">会话 / 审计 / 用户管理</text>
+  <text x="640" y="490" text-anchor="middle" font-size="10.5" fill="#475569">历史会话 / 操作日志 / 限流</text>
+
+  <!-- 存储与模型 -->
+  <rect x="58" y="574" width="178" height="66" rx="10" fill="#ffffff" stroke="#cbd5e1" filter="url(#shadow)"/>
+  <text x="147" y="600" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">SQLite</text>
+  <text x="147" y="620" text-anchor="middle" font-size="10" fill="#64748b">用户 / 文档元数据 / 会话 / 审计</text>
+
+  <rect x="262" y="574" width="178" height="66" rx="10" fill="#ffffff" stroke="#cbd5e1" filter="url(#shadow)"/>
+  <text x="351" y="600" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">文档目录</text>
+  <text x="351" y="620" text-anchor="middle" font-size="10" fill="#64748b">data/docs/&lt;部门&gt;/</text>
+
+  <rect x="466" y="574" width="178" height="66" rx="10" fill="#ffffff" stroke="#cbd5e1" filter="url(#shadow)"/>
+  <text x="555" y="600" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">Milvus 3.0.5</text>
+  <text x="555" y="620" text-anchor="middle" font-size="10" fill="#64748b">rag_docs · etcd · MinIO · HNSW</text>
+
+  <rect x="670" y="574" width="146" height="66" rx="10" fill="#ffffff" stroke="#cbd5e1" filter="url(#shadow)"/>
+  <text x="743" y="598" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">本地模型</text>
+  <text x="743" y="616" text-anchor="middle" font-size="9.5" fill="#64748b">Embedding / Reranker</text>
+  <text x="743" y="631" text-anchor="middle" font-size="9.5" fill="#64748b">RapidOCR</text>
+
+  <!-- 千问 -->
+  <rect x="910" y="330" width="208" height="150" rx="12" fill="#ffffff" stroke="#fcd34d" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="1014" y="362" text-anchor="middle" font-size="14" font-weight="700" fill="#b45309">Qwen3.8-max</text>
+  <text x="1014" y="384" text-anchor="middle" font-size="10.5" fill="#92400e">Anthropic 兼容接口</text>
+  <text x="1014" y="404" text-anchor="middle" font-size="10.5" fill="#92400e">Token Plan</text>
+  <text x="1014" y="432" text-anchor="middle" font-size="10.5" fill="#78350f">只发送问题 + Top-K 片段</text>
+  <text x="1014" y="452" text-anchor="middle" font-size="10.5" fill="#78350f">不发送整个知识库</text>
+
+  <!-- 连线 -->
+  <path d="M244 192 H310" fill="none" stroke="#64748b" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <text x="266" y="184" font-size="9.5" fill="#64748b">HTTP</text>
+
+  <path d="M403 234 V288" fill="none" stroke="#64748b" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+  <path d="M300 420 H238 V574" fill="none" stroke="#64748b" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <path d="M360 538 V574" fill="none" stroke="#64748b" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <path d="M532 538 V574" fill="none" stroke="#64748b" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <path d="M700 538 L743 538 V574" fill="none" stroke="#64748b" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+  <path d="M764 400 H910" fill="none" stroke="#d97706" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#arrowWarn)"/>
+  <text x="790" y="390" font-size="9.5" fill="#b45309">HTTPS</text>
+
+  <!-- 标注 -->
+  <text x="58" y="660" font-size="9.5" fill="#94a3b8">本机 Docker Desktop（Hyper-V）运行 Milvus 三件套；应用与模型在 Windows Python 环境运行。</text>
+</svg>

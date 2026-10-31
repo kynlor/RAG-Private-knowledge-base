@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 560" font-family="Segoe UI, Microsoft YaHei, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#64748b"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#2563eb"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#0f172a" flood-opacity="0.07"/>
+    </filter>
+  </defs>
+
+  <rect width="1180" height="560" fill="#f8fafc"/>
+
+  <!-- 离线建库 -->
+  <text x="28" y="42" font-size="13" font-weight="700" fill="#1d4ed8">① 离线建库（上传后异步执行）</text>
+  <text x="28" y="61" font-size="10.5" fill="#64748b">文档进入系统后，先解析、切片、向量化，再写入 Milvus</text>
+
+  <rect x="28" y="86" width="190" height="78" rx="10" fill="#ffffff" stroke="#93c5fd" stroke-width="1.4" filter="url(#shadow)"/>
+  <text x="123" y="115" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">上传 / 选择部门</text>
+  <text x="123" y="136" text-anchor="middle" font-size="10" fill="#64748b">TXT / MD / PDF / DOCX</text>
+  <text x="123" y="152" text-anchor="middle" font-size="10" fill="#64748b">同步进行登录与权限校验</text>
+
+  <rect x="248" y="86" width="190" height="78" rx="10" fill="#ffffff" stroke="#93c5fd" stroke-width="1.4" filter="url(#shadow)"/>
+  <text x="343" y="115" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">解析 / OCR</text>
+  <text x="343" y="136" text-anchor="middle" font-size="10" fill="#64748b">PDF 文本层 + RapidOCR</text>
+  <text x="343" y="152" text-anchor="middle" font-size="10" fill="#64748b">扫描件逐页识别</text>
+
+  <rect x="468" y="86" width="190" height="78" rx="10" fill="#ffffff" stroke="#93c5fd" stroke-width="1.4" filter="url(#shadow)"/>
+  <text x="563" y="115" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">切片</text>
+  <text x="563" y="136" text-anchor="middle" font-size="10" fill="#64748b">固定窗口 + overlap</text>
+  <text x="563" y="152" text-anchor="middle" font-size="10" fill="#64748b">CHUNK_SIZE / OVERLAP 可配</text>
+
+  <rect x="688" y="86" width="190" height="78" rx="10" fill="#ffffff" stroke="#93c5fd" stroke-width="1.4" filter="url(#shadow)"/>
+  <text x="783" y="115" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">向量化</text>
+  <text x="783" y="136" text-anchor="middle" font-size="10" fill="#64748b">fastembed BGE-small-zh</text>
+  <text x="783" y="152" text-anchor="middle" font-size="10" fill="#64748b">本地 ONNX，512 维</text>
+
+  <rect x="908" y="86" width="244" height="78" rx="10" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.4" filter="url(#shadow)"/>
+  <text x="1030" y="115" text-anchor="middle" font-size="12.5" font-weight="700" fill="#3730a3">写入 Milvus rag_docs</text>
+  <text x="1030" y="136" text-anchor="middle" font-size="10" fill="#475569">文本 + 向量 + 部门 + doc_id</text>
+  <text x="1030" y="152" text-anchor="middle" font-size="10" fill="#475569">同名同部门覆盖旧切片</text>
+
+  <path d="M218 125 H248" fill="none" stroke="#64748b" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <path d="M438 125 H468" fill="none" stroke="#64748b" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <path d="M658 125 H688" fill="none" stroke="#64748b" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <path d="M878 125 H908" fill="none" stroke="#64748b" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+  <!-- Milvus -->
+  <path d="M1030 164 V200" fill="none" stroke="#64748b" stroke-width="1.4" marker-end="url(#arrow)"/>
+  <rect x="888" y="200" width="284" height="66" rx="10" fill="#ffffff" stroke="#94a3b8" stroke-width="1.4" filter="url(#shadow)"/>
+  <text x="1030" y="226" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f172a">Milvus 3.0.5（HNSW + COSINE）</text>
+  <text x="1030" y="246" text-anchor="middle" font-size="10" fill="#64748b">etcd 元数据 · MinIO 对象存储 · segment 索引</text>
+
+  <!-- 分割线 -->
+  <line x1="28" y1="296" x2="1152" y2="296" stroke="#e2e8f0" stroke-width="1.2" stroke-dasharray="5 5"/>
+
+  <!-- 在线问答 -->
+  <text x="28" y="326" font-size="13" font-weight="700" fill="#7c3aed">② 在线问答（混合检索 + 重排）</text>
+  <text x="28" y="345" font-size="10.5" fill="#64748b">每次提问实时执行；回答只使用检索到的片段，并附带引用来源</text>
+
+  <rect x="28" y="370" width="124" height="76" rx="9" fill="#ffffff" stroke="#ddd6fe" stroke-width="1.3" filter="url(#shadow)"/>
+  <text x="90" y="399" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0f172a">用户问题</text>
+  <text x="90" y="419" text-anchor="middle" font-size="9.5" fill="#64748b">自然语言</text>
+
+  <rect x="166" y="370" width="124" height="76" rx="9" fill="#ffffff" stroke="#ddd6fe" stroke-width="1.3" filter="url(#shadow)"/>
+  <text x="228" y="399" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0f172a">问题向量化</text>
+  <text x="228" y="419" text-anchor="middle" font-size="9.5" fill="#64748b">BGE + 查询前缀</text>
+
+  <rect x="304" y="370" width="150" height="76" rx="9" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.3" filter="url(#shadow)"/>
+  <text x="379" y="395" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d4ed8">向量召回</text>
+  <text x="379" y="414" text-anchor="middle" font-size="9.5" fill="#475569">Top-15 · COSINE</text>
+  <text x="379" y="430" text-anchor="middle" font-size="9.5" fill="#475569">仅可见部门</text>
+
+  <rect x="468" y="370" width="150" height="76" rx="9" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.3" filter="url(#shadow)"/>
+  <text x="543" y="395" text-anchor="middle" font-size="11.5" font-weight="700" fill="#15803d">BM25 关键词召回</text>
+  <text x="543" y="414" text-anchor="middle" font-size="9.5" fill="#475569">jieba 分词</text>
+  <text x="543" y="430" text-anchor="middle" font-size="9.5" fill="#475569">Top-15</text>
+
+  <rect x="632" y="370" width="140" height="76" rx="9" fill="#faf5ff" stroke="#e9d5ff" stroke-width="1.3" filter="url(#shadow)"/>
+  <text x="702" y="395" text-anchor="middle" font-size="11.5" font-weight="700" fill="#7c3aed">RRF 融合</text>
+  <text x="702" y="414" text-anchor="middle" font-size="9.5" fill="#475569">1 / (60 + rank)</text>
+  <text x="702" y="430" text-anchor="middle" font-size="9.5" fill="#475569">去重 + 排序</text>
+
+  <rect x="786" y="370" width="140" height="76" rx="9" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.3" filter="url(#shadow)"/>
+  <text x="856" y="395" text-anchor="middle" font-size="11.5" font-weight="700" fill="#c2410c">Cross-Encoder</text>
+  <text x="856" y="414" text-anchor="middle" font-size="9.5" fill="#475569">BGE reranker</text>
+  <text x="856" y="430" text-anchor="middle" font-size="9.5" fill="#475569">Top-8 → Top-3</text>
+
+  <rect x="940" y="370" width="112" height="76" rx="9" fill="#ffffff" stroke="#fcd34d" stroke-width="1.3" filter="url(#shadow)"/>
+  <text x="996" y="395" text-anchor="middle" font-size="11.5" font-weight="700" fill="#b45309">Prompt + 千问</text>
+  <text x="996" y="414" text-anchor="middle" font-size="9.5" fill="#64748b">只基于片段</text>
+  <text x="996" y="430" text-anchor="middle" font-size="9.5" fill="#64748b">无答案则兜底</text>
+
+  <rect x="1066" y="370" width="86" height="76" rx="9" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.3" filter="url(#shadow)"/>
+  <text x="1109" y="395" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0f172a">答案</text>
+  <text x="1109" y="414" text-anchor="middle" font-size="9.5" fill="#64748b">引用 +</text>
+  <text x="1109" y="430" text-anchor="middle" font-size="9.5" fill="#64748b">召回方式</text>
+
+  <path d="M152 408 H166" fill="none" stroke="#64748b" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <path d="M290 408 H304" fill="none" stroke="#64748b" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <path d="M454 408 H468" fill="none" stroke="#64748b" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <path d="M618 408 H632" fill="none" stroke="#64748b" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <path d="M772 408 H786" fill="none" stroke="#64748b" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <path d="M926 408 H940" fill="none" stroke="#64748b" stroke-width="1.3" marker-end="url(#arrow)"/>
+  <path d="M1052 408 H1066" fill="none" stroke="#64748b" stroke-width="1.3" marker-end="url(#arrow)"/>
+
+  <!-- Milvus 到召回 -->
+  <path d="M1030 266 V300 H379 V370" fill="none" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrowBlue)"/>
+  <path d="M1030 300 H543 V370" fill="none" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+  <text x="720" y="292" font-size="9.5" fill="#2563eb">读取可见部门片段（向量 + 文本）</text>
+
+  <!-- 底部说明 -->
+  <text x="28" y="500" font-size="10.5" fill="#64748b">相关性判断：向量最高分 ≥ RAG_SCORE_THRESHOLD（0.35）或关键词覆盖率 ≥ 0.5，否则走千问通用回答并明确标注。</text>
+  <text x="28" y="520" font-size="10.5" fill="#64748b">回答引用展示：文件名、部门、召回方式（向量 / 关键词 / 混合）、余弦相似度与重排分。</text>
+  <text x="28" y="540" font-size="10.5" fill="#94a3b8">所有检索与重排均在企业侧完成；只有问题与最终 Top-K 片段会发送给千问。</text>
+</svg>

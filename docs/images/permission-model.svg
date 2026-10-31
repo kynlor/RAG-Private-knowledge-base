@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 560" font-family="Segoe UI, Microsoft YaHei, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#64748b"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#16a34a"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#2563eb"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#0f172a" flood-opacity="0.07"/>
+    </filter>
+  </defs>
+
+  <rect width="1100" height="560" fill="#f8fafc"/>
+
+  <!-- 管理员 -->
+  <rect x="36" y="58" width="280" height="190" rx="14" fill="#ffffff" stroke="#c4b5fd" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="36" y="58" width="280" height="42" rx="14" fill="#f5f3ff"/>
+  <text x="176" y="85" text-anchor="middle" font-size="14" font-weight="700" fill="#6d28d9">管理员 admin</text>
+  <text x="58" y="126" font-size="11" fill="#475569">部门：管理部　角色：admin</text>
+  <text x="58" y="150" font-size="11" fill="#475569">✓ 查看 / 管理全部部门资料</text>
+  <text x="58" y="172" font-size="11" fill="#475569">✓ 检索全部部门</text>
+  <text x="58" y="194" font-size="11" fill="#475569">✓ 创建 / 删除用户、重置密码</text>
+  <text x="58" y="216" font-size="11" fill="#475569">✓ 查看审计日志</text>
+  <text x="58" y="238" font-size="10.5" fill="#94a3b8">会话仍仅本人可见</text>
+
+  <!-- 普通用户 -->
+  <rect x="784" y="58" width="280" height="190" rx="14" fill="#ffffff" stroke="#86efac" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="784" y="58" width="280" height="42" rx="14" fill="#f0fdf4"/>
+  <text x="924" y="85" text-anchor="middle" font-size="14" font-weight="700" fill="#15803d">普通用户 alice</text>
+  <text x="806" y="126" font-size="11" fill="#475569">部门：研发部　角色：user</text>
+  <text x="806" y="150" font-size="11" fill="#475569">✓ 查看「公共 + 研发部」资料</text>
+  <text x="806" y="172" font-size="11" fill="#475569">✓ 上传资料固定归入研发部</text>
+  <text x="806" y="194" font-size="11" fill="#475569">✓ 删除自己上传的资料</text>
+  <text x="806" y="216" font-size="11" fill="#475569">✓ 查看 / 删除自己的会话</text>
+  <text x="806" y="238" font-size="10.5" fill="#94a3b8">看不到其他部门与其他用户会话</text>
+
+  <!-- 知识库 -->
+  <rect x="372" y="82" width="356" height="238" rx="16" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="550" y="116" text-anchor="middle" font-size="15" font-weight="700" fill="#1e3a8a">Milvus 知识库</text>
+  <text x="550" y="138" text-anchor="middle" font-size="10.5" fill="#64748b">集合 rag_docs · 每条切片带 department 字段</text>
+
+  <rect x="398" y="160" width="304" height="38" rx="8" fill="#eff6ff" stroke="#bfdbfe"/>
+  <text x="550" y="184" text-anchor="middle" font-size="12" font-weight="600" fill="#1d4ed8">公共资料（所有登录用户可见）</text>
+
+  <rect x="398" y="208" width="304" height="34" rx="8" fill="#f0fdf4" stroke="#bbf7d0"/>
+  <text x="550" y="230" text-anchor="middle" font-size="11.5" fill="#15803d">研发部资料</text>
+
+  <rect x="398" y="250" width="304" height="34" rx="8" fill="#fff7ed" stroke="#fed7aa"/>
+  <text x="550" y="272" text-anchor="middle" font-size="11.5" fill="#c2410c">财务部资料 / 其他部门资料</text>
+
+  <!-- 连线 -->
+  <path d="M316 154 H372" fill="none" stroke="#7c3aed" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <text x="324" y="146" font-size="9.5" fill="#6d28d9">全部可见</text>
+
+  <path d="M784 208 H728" fill="none" stroke="#16a34a" stroke-width="1.6" marker-end="url(#arrowGreen)"/>
+  <text x="736" y="200" font-size="9.5" fill="#15803d">仅公共 + 研发部</text>
+
+  <!-- 上传权限 -->
+  <rect x="36" y="300" width="280" height="86" rx="10" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="56" y="326" font-size="11.5" font-weight="700" fill="#0f172a">上传规则（后端强制）</text>
+  <text x="56" y="348" font-size="10.5" fill="#475569">普通用户即使伪造 department，也强制归本部门</text>
+  <text x="56" y="368" font-size="10.5" fill="#475569">管理员可选择任意部门或新建部门</text>
+
+  <rect x="784" y="300" width="280" height="86" rx="10" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="804" y="326" font-size="11.5" font-weight="700" fill="#0f172a">会话隔离</text>
+  <text x="804" y="348" font-size="10.5" fill="#475569">会话表带 owner_id；列表、读取、删除均校验</text>
+  <text x="804" y="368" font-size="10.5" fill="#475569">越权访问返回 404</text>
+
+  <rect x="372" y="416" width="356" height="86" rx="10" fill="#fffbeb" stroke="#fde68a"/>
+  <text x="550" y="442" text-anchor="middle" font-size="11.5" font-weight="700" fill="#b45309">管理员审计范围</text>
+  <text x="550" y="464" text-anchor="middle" font-size="10.5" fill="#92400e">登录 / 上传 / 删除 / 用户管理 / 问答元数据</text>
+  <text x="550" y="484" text-anchor="middle" font-size="10" fill="#a16207">审计日志不记录对话正文，只记录操作与检索模式</text>
+
+  <path d="M176 300 V360 H372" fill="none" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 4"/>
+  <path d="M924 300 V360 H728" fill="none" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 4"/>
+</svg>

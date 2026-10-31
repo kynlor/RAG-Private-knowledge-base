@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>企业私有知识库 · RAG</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%233b82f6'/%3E%3Cstop offset='1' stop-color='%238b5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='42' font-family='Segoe UI,Arial' font-size='24' font-weight='700' fill='white' text-anchor='middle'%3ERAG%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">RAG</div>
+        <div class="brand-text">
+          <h1>企业私有知识库</h1>
+          <p>上传内部资料，让 AI 基于资料回答</p>
+        </div>
+      </div>
+
+      <div class="tabs" role="tablist">
+        <button class="tab active" type="button" data-tab="docs" role="tab">知识库</button>
+        <button class="tab" type="button" data-tab="history" role="tab">历史会话</button>
+      </div>
+
+      <div class="tab-panel" id="panel-docs">
+        <div class="upload-zone" id="dropzone" role="button" tabindex="0">
+          <input type="file" id="fileInput" multiple accept=".txt,.md,.markdown,.pdf,.docx" hidden>
+          <div class="upload-icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5"/>
+              <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/>
+            </svg>
+          </div>
+          <div class="upload-title">点击或拖拽上传资料</div>
+          <div class="upload-hint">TXT / Markdown / PDF / Word · 单文件 ≤ 20MB</div>
+          <div class="upload-state" id="uploadState"></div>
+        </div>
+
+        <div class="dept-row">
+          <label for="uploadDept">归属部门</label>
+          <input id="uploadDept" list="deptOptions" placeholder="公共" autocomplete="off">
+          <datalist id="deptOptions"></datalist>
+        </div>
+
+        <div class="upload-jobs" id="uploadJobs"></div>
+
+        <div class="docs-header">
+          <span>知识库资料</span>
+          <span class="doc-count" id="docCount">0</span>
+        </div>
+        <ul class="doc-list" id="docList">
+          <li class="doc-empty">还没有资料，上传后会立即入库</li>
+        </ul>
+      </div>
+
+      <div class="tab-panel" id="panel-history" hidden>
+        <button class="new-chat-btn" id="newChatSideBtn" type="button">
+          <span>＋</span> 新对话
+        </button>
+        <ul class="session-list" id="sessionList">
+          <li class="doc-empty">还没有历史会话<br>发送第一条问题后自动保存</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="user-card">
+          <div class="user-avatar" id="userAvatar">?</div>
+          <div class="user-info">
+            <div class="user-name" id="userName">加载中…</div>
+            <div class="user-dept" id="userDept"></div>
+          </div>
+          <button class="icon-btn" id="passwordBtn" type="button" title="修改密码">改密</button>
+          <button class="icon-btn" id="adminBtn" type="button" title="用户管理" hidden>管理</button>
+          <button class="icon-btn" id="logoutBtn" type="button" title="退出登录">退出</button>
+        </div>
+        <div class="status-line">
+          <span class="status-dot" id="statusDot"></span>
+          <span id="statusText">正在连接 Milvus…</span>
+        </div>
+        <div class="model-line" id="modelLine"></div>
+      </div>
+    </aside>
+
+    <main class="chat">
+      <header class="chat-header">
+        <div>
+          <h2>知识库问答 <span class="scope-badge" id="scopeBadge">…</span></h2>
+          <p>优先基于私有资料回答，无相关内容时改用通用知识</p>
+        </div>
+        <button class="ghost-btn" id="clearBtn" type="button">＋ 新对话</button>
+      </header>
+
+      <div class="messages" id="messages">
+        <div class="welcome">
+          <div class="welcome-icon">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
+              <path d="M8 9h8M8 13h5"/>
+            </svg>
+          </div>
+          <h3>向你的私有知识库提问</h3>
+          <p>先把公司制度、产品文档、会议纪要等资料上传到左侧，AI 会先检索片段，再基于资料作答，并展示引用来源。</p>
+          <div class="suggestions">
+            <button class="chip" type="button" data-q="Milvus 为什么需要 etcd？">Milvus 为什么需要 etcd？</button>
+            <button class="chip" type="button" data-q="RAG 是什么？">RAG 是什么？</button>
+            <button class="chip" type="button" data-q="切片时为什么要设置重叠？">切片时为什么要设置重叠？</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="composer-wrap">
+        <form class="composer" id="composer">
+          <textarea id="question" rows="1" placeholder="输入问题，例如：公司的报销流程是什么？"></textarea>
+          <button class="send-btn" id="sendBtn" type="submit" title="发送">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/>
+            </svg>
+          </button>
+        </form>
+        <div class="composer-hint">
+          <span>私有资料优先，引用可展开查看</span>
+          <span>Enter 发送 · Shift + Enter 换行</span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal" id="userModal" hidden>
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3>用户管理</h3>
+        <button class="modal-close" id="closeUserModal" type="button" title="关闭">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="user-list" id="userList"></div>
+        <div class="form-title">新建用户</div>
+        <form class="create-user-form" id="createUserForm">
+          <input id="newUsername" placeholder="用户名（2-32 位）" required autocomplete="off">
+          <input id="newPassword" type="password" placeholder="密码（至少 6 位）" required autocomplete="new-password">
+          <input id="newDepartment" list="deptOptions" placeholder="部门，如 研发部" required autocomplete="off">
+          <select id="newRole">
+            <option value="user">普通用户</option>
+            <option value="admin">管理员</option>
+          </select>
+          <button type="submit">创建用户</button>
+        </form>
+
+        <div class="audit-head">
+          <div class="form-title">审计日志</div>
+          <button class="audit-refresh" id="loadAuditBtn" type="button">刷新</button>
+        </div>
+        <div class="audit-list" id="auditList"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="passwordModal" hidden>
+    <div class="modal-backdrop" data-close-password></div>
+    <div class="modal-card password-card">
+      <div class="modal-head">
+        <h3>修改密码</h3>
+        <button class="modal-close" id="closePasswordModal" type="button" title="关闭">✕</button>
+      </div>
+      <div class="modal-body">
+        <form class="create-user-form password-form" id="passwordForm">
+          <input id="oldPassword" type="password" placeholder="原密码" required autocomplete="current-password">
+          <input id="newPasswordInput" type="password" placeholder="新密码（至少 6 位）" required autocomplete="new-password">
+          <button type="submit">保存新密码</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="toasts" id="toasts"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
